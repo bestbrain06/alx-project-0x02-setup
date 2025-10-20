@@ -1,20 +1,41 @@
+import React, { useState } from "react";
+import PostModal from "@/components/common/PostModal";
+import { type PostData } from "@/interfaces";
 import Card from "@/components/common/Card";
 
-export default function HomePage() {
+const HomePage = () => {
+  const [posts, setPosts] = useState<PostData[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAddPost = (data: PostData) => {
+    setPosts([...posts, data]);
+  };
+
   return (
-    <div className="p-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <Card
-        title="Luxury Villa"
-        content="Enjoy breathtaking ocean views and world-class amenities."
-      />
-      <Card
-        title="Mountain Escape"
-        content="Relax in the serenity of snow-capped peaks and cozy interiors."
-      />
-      <Card
-        title="City Lights Apartment"
-        content="Experience modern living with stunning skyline views."
+    <div className="p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-semibold">Posts</h1>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Add Post
+        </button>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post, index) => (
+          <Card key={index} title={post.title} content={post.content} />
+        ))}
+      </div>
+
+      <PostModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddPost={handleAddPost}
       />
     </div>
   );
-}
+};
+
+export default HomePage;
