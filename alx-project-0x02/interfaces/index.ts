@@ -1,1 +1,4 @@
-// interfaces/index
+export interface CardProps {
+  title: string;
+  content: string;
+}
