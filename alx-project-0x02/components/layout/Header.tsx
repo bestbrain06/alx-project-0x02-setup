@@ -28,6 +28,12 @@ const Header: React.FC = () => {
           >
             Posts
           </Link>
+          <Link
+            href="/users"
+            className="hover:text-yellow-300 transition-colors duration-200"
+          >
+            Users
+          </Link>
         </nav>
       </div>
     </header>
